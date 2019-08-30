@@ -15,7 +15,7 @@ public class ActionPage {
     private WebDriver webDriver;
     private By topSpellingLoc = By.id("tab_select_TopSellers");
     private By listDiscountsLoc = By.xpath("//div[@id='TopSellersTable']//div[@class='discount_pct']");
-    private String pattern = "^-[0-9]+%$";
+    private By listPricesWithoutDiscounts = By.xpath("//div[@id='TopSellersTable']//div[@class='discount_pct']/parent::div//div[@class='discount_original_price']");
 
     public ActionPage() {
         webDriver = Browser.getDriver();
@@ -54,7 +54,6 @@ public class ActionPage {
     }
 
     public void clickOnGame() {
-
         getGameWithMaxDiscount().click();
     }
 
