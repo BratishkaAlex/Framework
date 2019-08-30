@@ -21,7 +21,7 @@ public class DownloadPage {
         return new Button(downloadBtn);
     }
 
-    public String getDownloadButtonHref(){
-        return new Button(downloadBtn).getHref();
+    public boolean isDownloadPage(){
+        return getDownloadButton().isDisplayed();
     }
 }

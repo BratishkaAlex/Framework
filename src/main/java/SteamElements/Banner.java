@@ -3,8 +3,9 @@ package SteamElements;
 import elements.BaseElement;
 import org.openqa.selenium.By;
 
-public class Button extends BaseElement {
-    public Button(By loc) {
+public class Banner extends BaseElement {
+
+    public Banner(By loc) {
         super(loc);
     }
 }
