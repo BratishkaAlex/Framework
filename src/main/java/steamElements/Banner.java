@@ -1,4 +1,4 @@
-package SteamElements;
+package steamElements;
 
 import elements.BaseElement;
 import org.openqa.selenium.By;

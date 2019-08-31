@@ -1,24 +1,23 @@
 package steamPages;
 
-import SteamElements.Button;
-import browser.Browser;
+import steamElements.Button;
+import steamElements.Label;
+import steamElements.TopSpellersTab;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import utils.Reader;
 
 public class ActionPage {
-    private WebDriver webDriver;
     private By topSpellingLoc = By.id("tab_select_TopSellers");
     private By listDiscountsLoc = By.xpath("//div[@id='TopSellersTable']//div[@class='discount_pct']");
-    private By listPricesWithoutDiscounts = By.xpath("//div[@id='TopSellersTable']//div[@class='discount_pct']/parent::div//div[@class='discount_original_price']");
+    private By originPriceLoc = By.xpath("parent::div//div[@class='discount_original_price']");
+    private By finalPriceLoc = By.xpath("parent::div//div[@class='discount_final_price']");
+    private By actionPageLoc = By.xpath("//h2[@class='pageheader' and (contains(text(), 'Action') or contains(text(), 'Экшен'))]");
+    private By gameNameLoc = By.xpath("../following-sibling::div//div[contains(@class,'tab_item_name')]");
+    private By topSpellersTabLoc = By.id("TopSellersTable");
 
-    public ActionPage() {
-        webDriver = Browser.getDriver();
+    public boolean isTopSpellersClicked() {
+        return new TopSpellersTab(topSpellersTabLoc).isDisplayed();
     }
 
     private Button getTopSpelling() {
@@ -29,32 +28,47 @@ public class ActionPage {
         getTopSpelling().click();
     }
 
-    private List<WebElement> getListDiscounts() {
-        return webDriver.findElements(listDiscountsLoc);
-    }
+//   private List<WebElement> getListDiscounts() {
+//        return webDriver.findElements(listDiscountsLoc);
+//    }
 
     private WebElement getGameWithMaxDiscount() {
-        ArrayList<Integer> listDiscounts = new ArrayList<>();
-        Pattern pattern = Pattern.compile("\\d+");
         int indexMaxDiscount = 0;
         int maxDiscount = 0;
-        for (int i = 0; i < getListDiscounts().size(); i++) {
-            String line = getListDiscounts().get(i).getText();
-            Matcher matcher = pattern.matcher(line);
-            while (matcher.find()) {
-                listDiscounts.add(Integer.valueOf(line.substring(matcher.start(), matcher.end())));
-            }
-            if (listDiscounts.get(i).intValue() > maxDiscount) {
-                maxDiscount = listDiscounts.get(i).intValue();
+        for (int i = 0; i < Label.getListElements(listDiscountsLoc).size(); i++) {
+            String line = Label.getListElements(listDiscountsLoc).get(i).getText();
+            int tempDiscount = Reader.getIntNumber(line);
+            if (tempDiscount > maxDiscount) {
+                maxDiscount = tempDiscount;
                 indexMaxDiscount = i;
             }
         }
-        System.out.println(listDiscounts.get(indexMaxDiscount).intValue());
-        return getListDiscounts().get(indexMaxDiscount);
+        return Label.getListElements(listDiscountsLoc).get(indexMaxDiscount);
     }
 
     public void clickOnGame() {
         getGameWithMaxDiscount().click();
     }
+
+    public int getDiscount() {
+        return Reader.getIntNumber(getGameWithMaxDiscount().getText());
+    }
+
+    public Double getOriginalPrice() {
+        return Reader.getDoubleNumber(getGameWithMaxDiscount().findElement(originPriceLoc).getText());
+    }
+
+    public Double getFinalPrice() {
+        return Reader.getDoubleNumber(getGameWithMaxDiscount().findElement(finalPriceLoc).getText());
+    }
+
+    public String getGameName() {
+        return getGameWithMaxDiscount().findElement(gameNameLoc).getText();
+    }
+
+    public boolean isActionGamesPage() {
+        return new Label(actionPageLoc).isDisplayed();
+    }
+
 
 }

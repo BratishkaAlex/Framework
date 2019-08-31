@@ -27,4 +27,8 @@ public abstract class BaseElement {
         return webElement.isDisplayed();
     }
 
+    public String getText() {
+        return webElement.getText();
+    }
+
 }

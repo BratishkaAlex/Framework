@@ -1,19 +1,15 @@
 package steamPages;
 
-import SteamElements.Button;
-import browser.Browser;
+import steamElements.Button;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class DownloadPage {
-    private WebDriver webDriver;
     private By downloadBtn = By.xpath("//a[@class='about_install_steam_link']");
 
-    public DownloadPage(){
-        webDriver = Browser.getDriver();
+    public DownloadPage() {
     }
 
-    public void downloadSteam(){
+    public void downloadSteam() {
         getDownloadButton().click();
     }
 
@@ -21,7 +17,7 @@ public class DownloadPage {
         return new Button(downloadBtn);
     }
 
-    public boolean isDownloadPage(){
+    public boolean isDownloadPage() {
         return getDownloadButton().isDisplayed();
     }
 }
