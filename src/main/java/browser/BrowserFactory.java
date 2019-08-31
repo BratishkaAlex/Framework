@@ -8,19 +8,23 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import utils.LoggerUtil;
 import utils.Props;
 
 import java.util.HashMap;
+import java.util.logging.Level;
 
 class BrowserFactory {
     static WebDriver getDriver(String browser) {
         WebDriver driver;
         switch (browser) {
             case "chrome":
+                LoggerUtil.LOGGER.log(Level.INFO, "Creating instance of chromedriver");
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver(getPropForChrome());
                 break;
             case "firefox":
+                LoggerUtil.LOGGER.log(Level.INFO, "Creating instance of firefoxdriver");
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver(getPropsForFirefox());
                 break;

@@ -1,8 +1,10 @@
 package browser;
 
 import org.openqa.selenium.WebDriver;
+import utils.LoggerUtil;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class Browser {
 
@@ -18,6 +20,7 @@ public class Browser {
     }
 
     public static void maximize() {
+        LoggerUtil.LOGGER.log(Level.INFO, "Maximize window");
         driver.manage().window().maximize();
     }
 
@@ -26,12 +29,13 @@ public class Browser {
     }
 
     public static void enterUrl(String url) {
+
         driver.get(url);
     }
 
     public static void closeBrowser() {
+        LoggerUtil.LOGGER.log(Level.INFO, "Close browser");
         driver.quit();
-        driver = null;
     }
 
     public static WebDriver getDriver() {
