@@ -22,4 +22,10 @@ public class Waiter {
             System.out.println(e);
         }
     }
+
+   /* public void waitForFile(WebDriver driver, File file) {
+        FluentWait wait = new FluentWait(driver).withTimeout(30, TimeUnit.SECONDS).
+            pollingEvery(1, TimeUnit.SECONDS);
+        wait.until((webDriver) -> file.exists());
+    }*/
 }

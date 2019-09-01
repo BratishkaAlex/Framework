@@ -5,8 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
 
-public class Props {
+public class PropertyManager {
 
     public static String getProperty(String property) {
         Properties properties = new Properties();
@@ -18,5 +19,17 @@ public class Props {
             System.out.println("Error in reading config.property");
         }
         return properties.getProperty(property);
+    }
+
+    public static String getFilename() {
+        LoggerUtil.LOGGER.log(Level.INFO, "Get filename according to OS");
+        switch (System.getProperty("os.name")) {
+            case "Linux":
+                return "steam_latest.deb";
+            case "Windows 10":
+                return "SteamSetup.exe";
+            default:
+                throw new IllegalArgumentException("Unknown OS");
+        }
     }
 }

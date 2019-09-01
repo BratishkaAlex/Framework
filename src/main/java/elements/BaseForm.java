@@ -4,11 +4,8 @@ import browser.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.util.List;
-
 public abstract class BaseForm {
     private WebElement webElement;
-    private static List<? extends BaseElement> listElements;
 
     public BaseForm(By loc) {
         this.webElement = Browser.getDriver().findElement(loc);
