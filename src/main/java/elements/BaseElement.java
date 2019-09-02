@@ -14,13 +14,13 @@ public abstract class BaseElement {
         this.webElement = Browser.getDriver().findElement(loc);
     }
 
+    public BaseElement(WebElement webElement) {
+        this.webElement = webElement;
+    }
+
     public void click() {
         Waiter.waitForClickable(loc);
         webElement.click();
-    }
-
-    public WebElement getWebElement() {
-        return webElement;
     }
 
     public boolean isDisplayed() {
@@ -31,4 +31,7 @@ public abstract class BaseElement {
         return webElement.getText();
     }
 
+    public WebElement findElement(By loc){
+        return webElement.findElement(loc);
+    }
 }

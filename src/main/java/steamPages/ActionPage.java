@@ -1,14 +1,16 @@
 package steamPages;
 
-import steamElements.Button;
+import steamElements.Div;
 import steamElements.Label;
+import steamElements.TabBar;
 import steamElements.TopSpellersTab;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.Reader;
 
 public class ActionPage {
-    private By topSpellingLoc = By.id("tab_select_TopSellers");
+    public TabBar tabBar;
+    public TopSpellersTab topSpellersTab;
     private By listDiscountsLoc = By.xpath("//div[@id='TopSellersTable']//div[@class='discount_pct']");
     private By originPriceLoc = By.xpath("parent::div//div[@class='discount_original_price']");
     private By finalPriceLoc = By.xpath("parent::div//div[@class='discount_final_price']");
@@ -16,16 +18,13 @@ public class ActionPage {
     private By gameNameLoc = By.xpath("../following-sibling::div//div[contains(@class,'tab_item_name')]");
     private By topSpellersTabLoc = By.id("TopSellersTable");
 
+    public ActionPage(){
+        tabBar = new TabBar();
+        topSpellersTab = new TopSpellersTab();
+    }
+
     public boolean isTopSpellersClicked() {
-        return new TopSpellersTab(topSpellersTabLoc).isDisplayed();
-    }
-
-    private Button getTopSpelling() {
-        return new Button(topSpellingLoc);
-    }
-
-    public void clickOnTopSpelling() {
-        getTopSpelling().click();
+        return new Div(topSpellersTabLoc).isDisplayed();
     }
 
 //   private List<WebElement> getListDiscounts() {
@@ -45,11 +44,22 @@ public class ActionPage {
         }
         return Label.getListElements(listDiscountsLoc).get(indexMaxDiscount);
     }
-
-    public void clickOnGame() {
-        getGameWithMaxDiscount().click();
+    public int getDiscount() {
+        return Reader.getIntNumber(topSpellersTab.getGame("MaxDiscount").getText());
     }
 
+    public Double getOriginalPrice() {
+        return Reader.getDoubleNumber(topSpellersTab.getGame("MaxDiscount").findElement(originPriceLoc).getText());
+    }
+
+    public Double getFinalPrice() {
+        return Reader.getDoubleNumber(topSpellersTab.getGame("MaxDiscount").findElement(finalPriceLoc).getText());
+    }
+
+    public String getGameName() {
+        return topSpellersTab.getGame("MaxDiscount").findElement(gameNameLoc).getText();
+    }
+    /*
     public int getDiscount() {
         return Reader.getIntNumber(getGameWithMaxDiscount().getText());
     }
@@ -65,7 +75,7 @@ public class ActionPage {
     public String getGameName() {
         return getGameWithMaxDiscount().findElement(gameNameLoc).getText();
     }
-
+*/
     public boolean isActionGamesPage() {
         return new Label(actionPageLoc).isDisplayed();
     }

@@ -1,18 +1,31 @@
 package elements;
 
-import browser.Browser;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public abstract class BaseForm {
-    private WebElement webElement;
+    protected HashMap<String, BaseElement> elements;
 
-    public BaseForm(By loc) {
-        this.webElement = Browser.getDriver().findElement(loc);
+    public BaseForm() {
+        elements = new HashMap<>();
     }
 
-    public boolean isDisplayed() {
-        return webElement.isDisplayed();
+    public void addElement(String name, BaseElement element){
+        elements.put(name, element);
     }
+
+    public BaseElement navigateTo(String name){
+        return elements.get(name);
+    }
+
+    public List<BaseElement> getElements(){
+        return  new ArrayList<>(elements.values());
+    }
+
+    public void click(String elementName){
+        navigateTo(elementName).click();
+    }
+
 
 }
