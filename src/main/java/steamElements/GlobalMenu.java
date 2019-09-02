@@ -7,7 +7,6 @@ public class GlobalMenu extends BaseForm {
     private By installButtonLoc = By.xpath("//a[@class='header_installsteam_btn_content']");
 
     public GlobalMenu(){
-        addElement("installSteam", new Button(installButtonLoc));
     }
 
     public void goToIstallationPage(){

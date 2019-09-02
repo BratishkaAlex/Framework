@@ -74,22 +74,22 @@ public class SteamTestCase2 {
         assertTrue(homePage.isHomePage(), "This is not the home page");
         LoggerUtil.LOGGER.log(Level.INFO, "Click on action category");
         homePage.navigationMenu.clickOnGenreTab();
-        homePage.genreMenu.navigateTo("Action").click();
+        homePage.genreMenu.navigateTo(getAction());
 
 
         LoggerUtil.LOGGER.log(Level.INFO, "Opening the action game's page");
         ActionPage actionPage = new ActionPage();
         assertTrue(actionPage.isActionGamesPage(), "This is not the action games page");
         LoggerUtil.LOGGER.log(Level.INFO, "Click on top spellers");
-        actionPage.tabBar.navigateTo("TopSellersTab").click();
-        assertTrue(actionPage.isTopSpellersClicked(), "Didn't click on top spellers");
+        actionPage.tabBar.navigateToTopSellers();
+        assertTrue(actionPage.isTopSellersClicked(), "Didn't click on top sellers");
         LoggerUtil.LOGGER.log(Level.INFO, "Save the game's with max discount name, discount, original and final prices");
         String gameWithMaxDiscount = actionPage.getGameName();
         int discount = actionPage.getDiscount();
         double originalPrice = actionPage.getOriginalPrice();
         double finalPrice = actionPage.getFinalPrice();
         LoggerUtil.LOGGER.log(Level.INFO, "Click on chosen game");
-        actionPage.topSpellersTab.getGame("MaxDiscount").click();
+        actionPage.topSellersTab.navigateTo("MaxDiscount");
 
       /*  if (hasConfirmAgeForm()){
             LoggerUtil.LOGGER.log(Level.INFO, "Confirm right age");

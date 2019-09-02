@@ -56,29 +56,35 @@ public class SteamTestCase3 {
             return false;
         }
     }*/
-
+  private String getAction(){
+      switch(PropertyManager.getProperty("language")){
+          case "ru": return "Инди";
+          case "en": return "Indie";
+          default: throw new IllegalArgumentException("Unkwown language");
+      }
+  }
     @Test
     public void testCase3() {
         HomePage homePage = new HomePage();
         LoggerUtil.LOGGER.log(Level.INFO, "Check opening the main page");
         assertTrue(homePage.isHomePage(), "This is not the home page");
         LoggerUtil.LOGGER.log(Level.INFO, "Click on indie category");
-        homePage.navigationMenu.navigateTo("GamesList").click();
-        homePage.genreMenu.navigateTo("Indie").click();
+        homePage.navigationMenu.clickOnGenreTab();
+        homePage.genreMenu.navigateTo(getAction());
 
         LoggerUtil.LOGGER.log(Level.INFO, "Opening the chosen game's page");
         IndiePage indiePage = new IndiePage();
         assertTrue(indiePage.isIndieGamesPage(), "This is not the indie games page");
         LoggerUtil.LOGGER.log(Level.INFO, "Click on top spellers");
-        indiePage.tabBar.navigateTo("TopSellersTab").click();
-        assertTrue(indiePage.isTopSpellersClicked(), "Didn't click on top spellers");
+        indiePage.tabBar.navigateToTopSellers();
+        assertTrue(indiePage.isTopSellersClicked(), "Didn't click on top sellers");
         LoggerUtil.LOGGER.log(Level.INFO, "Save the game's with min discount name, discount, original and final prices");
         String gameWithMinDiscount = indiePage.getGameName();
         int discount = indiePage.getDiscount();
         double originalPrice = indiePage.getOriginalPrice();
         double finalPrice = indiePage.getFinalPrice();
         LoggerUtil.LOGGER.log(Level.INFO, "Click on chosen game");
-        indiePage.topSpellersTab.getGame("MinDiscount").click();
+        indiePage.topSellersTab.navigateTo("MinDiscount");
 
         /*if (hasConfirmAgeForm()){
             LoggerUtil.LOGGER.log(Level.INFO, "Confirm right age");

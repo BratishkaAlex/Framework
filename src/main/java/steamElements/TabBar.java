@@ -7,6 +7,14 @@ public class TabBar extends BaseForm {
     private By topSpellingLoc = By.id("tab_select_TopSellers");
 
     public TabBar(){
-        addElement("TopSellersTab", new Button(topSpellingLoc));
+
+    }
+
+    private Button getTabButton(){
+        return new Button(topSpellingLoc);
+    }
+
+    public void navigateToTopSellers(){
+        getTabButton().click();
     }
 }
