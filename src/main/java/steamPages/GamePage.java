@@ -1,8 +1,8 @@
 package steamPages;
 
-import steamElements.Label;
-import org.openqa.selenium.By;
 import framework.utils.NumberReader;
+import org.openqa.selenium.By;
+import steamElements.Label;
 
 public class GamePage {
     private By gameNameLoc = By.xpath("(//div[@id='game_area_purchase']//h1)[1]");

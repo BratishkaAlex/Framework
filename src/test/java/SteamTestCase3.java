@@ -1,4 +1,7 @@
+import appUtils.LoggerUtil;
 import framework.browser.Browser;
+import framework.utils.PropertyManager;
+import framework.utils.Waiter;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
@@ -7,9 +10,6 @@ import org.testng.annotations.Test;
 import steamPages.GamePage;
 import steamPages.GenrePage;
 import steamPages.HomePage;
-import appUtils.LoggerUtil;
-import framework.utils.PropertyManager;
-import framework.utils.Waiter;
 
 import java.util.logging.Level;
 
@@ -23,7 +23,7 @@ public class SteamTestCase3 {
     @BeforeTest
     public void setUp() {
         LoggerUtil.LOGGER.log(Level.INFO, "Creating instance of webDriver");
-        Browser.setUp(PropertyManager.getProperty("src/main/resources/config.properties","browser"));
+        Browser.setUp(PropertyManager.getProperty("src/main/resources/config.properties", "browser"));
         LoggerUtil.LOGGER.log(Level.INFO, "Maximize window");
         Browser.maximize();
         Waiter.implicitWait();
@@ -32,7 +32,7 @@ public class SteamTestCase3 {
     @BeforeMethod
     public void enterUrl() {
         LoggerUtil.LOGGER.log(Level.INFO, "Go to the main Steam page");
-        Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties","url"));
+        Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties", "url"));
     }
 
     @AfterTest
@@ -56,7 +56,7 @@ public class SteamTestCase3 {
           }
       }*/
     private String getIndie() {
-        switch (PropertyManager.getProperty("src/main/resources/config.properties","language")) {
+        switch (PropertyManager.getProperty("src/main/resources/config.properties", "language")) {
             case "ru":
                 return "Инди";
             case "en":

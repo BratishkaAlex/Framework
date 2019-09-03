@@ -1,11 +1,11 @@
 package steamPages;
 
+import framework.utils.NumberReader;
 import org.openqa.selenium.By;
 import steamElements.Div;
 import steamElements.Label;
 import steamElements.TabBar;
 import steamElements.TopSellersTab;
-import framework.utils.NumberReader;
 
 public class GenrePage {
     public TabBar tabBar;
@@ -17,7 +17,7 @@ public class GenrePage {
     private By gameNameLoc = By.xpath("../following-sibling::div//div[contains(@class,'tab_item_name')]");
     private By topSellersTabLoc = By.id("TopSellersTable");
 
-    public GenrePage(){
+    public GenrePage() {
         tabBar = new TabBar();
         topSellersTab = new TopSellersTab();
     }

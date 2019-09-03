@@ -1,11 +1,14 @@
 package framework.utils;
 
+import com.google.common.base.Function;
 import framework.browser.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class Waiter {
@@ -23,9 +26,9 @@ public class Waiter {
         }
     }
 
-  /*  public void waitForFile(WebDriver driver, File file) {
-        FluentWait wait = new FluentWait(driver).withTimeout(Integer.valueOf(PropertyManager.getProperty("src/main/resources/config.properties","timeout")), TimeUnit.SECONDS).
+    public static void waitForFile(File file) {
+        FluentWait wait = new FluentWait(Browser.getDriver()).withTimeout(Integer.valueOf(PropertyManager.getProperty("src/main/resources/config.properties", "timeout")), TimeUnit.SECONDS).
             pollingEvery(1, TimeUnit.SECONDS);
-        wait.until((webDriver) -> file.exists());
-    }*/
+        wait.until((Function) (webDriver) -> file.exists());
+    }
 }

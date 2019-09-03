@@ -1,7 +1,7 @@
 package steamElements;
 
-import org.openqa.selenium.By;
 import framework.utils.NumberReader;
+import org.openqa.selenium.By;
 
 public class TopSellersTab {
 

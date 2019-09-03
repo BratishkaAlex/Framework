@@ -1,4 +1,7 @@
+import appUtils.LoggerUtil;
 import framework.browser.Browser;
+import framework.utils.PropertyManager;
+import framework.utils.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.annotations.AfterTest;
@@ -9,9 +12,6 @@ import steamPages.CheckAgePage;
 import steamPages.GamePage;
 import steamPages.GenrePage;
 import steamPages.HomePage;
-import appUtils.LoggerUtil;
-import framework.utils.PropertyManager;
-import framework.utils.Waiter;
 
 import java.util.logging.Level;
 
@@ -25,7 +25,7 @@ public class SteamTestCase2 {
     @BeforeTest
     public void setUp() {
         LoggerUtil.LOGGER.log(Level.INFO, "Creating instance of webDriver");
-        Browser.setUp(PropertyManager.getProperty("src/main/resources/config.properties","browser"));
+        Browser.setUp(PropertyManager.getProperty("src/main/resources/config.properties", "browser"));
         LoggerUtil.LOGGER.log(Level.INFO, "Maximize window");
         Browser.maximize();
         Waiter.implicitWait();
@@ -34,7 +34,7 @@ public class SteamTestCase2 {
     @BeforeMethod
     public void enterUrl() {
         LoggerUtil.LOGGER.log(Level.INFO, "Go to the main Steam page");
-        Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties","url"));
+        Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties", "url"));
     }
 
     @AfterTest
@@ -59,7 +59,7 @@ public class SteamTestCase2 {
     }
 
     private String getAction() {
-        switch (PropertyManager.getProperty("src/main/resources/config.properties","language")) {
+        switch (PropertyManager.getProperty("src/main/resources/config.properties", "language")) {
             case "ru":
                 return "Экшен";
             case "en":

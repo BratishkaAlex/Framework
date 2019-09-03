@@ -53,12 +53,9 @@ public class SteamTestCase1 {
         assertTrue(downloadPage.isDownloadPage(), "This is not the download page");
         downloadPage.downloadSteam();
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
 
-        }
         File downloadFile = new File(PropertyManager.getProperty("src/main/resources/config.properties", "path"), Utils.getFilename());
+        Waiter.waitForFile(downloadFile);
         assertTrue(downloadFile.exists(), "There is no such file");
     }
 

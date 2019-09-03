@@ -34,9 +34,9 @@ class BrowserFactory {
     private static DesiredCapabilities getPropForChrome() {
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         chromePrefs.put("profile.default_content_settings.popups", 0);
-        chromePrefs.put("download.default_directory", new File(PropertyManager.getProperty("src/main/resources/config.properties","path")).getAbsolutePath());
+        chromePrefs.put("download.default_directory", new File(PropertyManager.getProperty("src/main/resources/config.properties", "path")).getAbsolutePath());
         chromePrefs.put("safebrowsing.enabled", "true");
-        chromePrefs.put("intl.accept_languages", PropertyManager.getProperty("src/main/resources/config.properties","language"));
+        chromePrefs.put("intl.accept_languages", PropertyManager.getProperty("src/main/resources/config.properties", "language"));
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs", chromePrefs);
         DesiredCapabilities chromeOptions = DesiredCapabilities.chrome();
@@ -47,10 +47,10 @@ class BrowserFactory {
 
     private static FirefoxOptions getPropsForFirefox() {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
-        firefoxOptions.addPreference("intl.accept_languages", PropertyManager.getProperty("src/main/resources/config.properties","language"));
+        firefoxOptions.addPreference("intl.accept_languages", PropertyManager.getProperty("src/main/resources/config.properties", "language"));
         firefoxOptions.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-debian-package, application/octet-stream");
-        firefoxOptions.addPreference("browser.download.folderList",2);
-        firefoxOptions.addPreference("browser.download.dir", new File(PropertyManager.getProperty("src/main/resources/config.properties","path")).getAbsolutePath());
+        firefoxOptions.addPreference("browser.download.folderList", 2);
+        firefoxOptions.addPreference("browser.download.dir", new File(PropertyManager.getProperty("src/main/resources/config.properties", "path")).getAbsolutePath());
         return firefoxOptions;
     }
 }
