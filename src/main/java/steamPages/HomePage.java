@@ -1,10 +1,7 @@
 package steamPages;
 
 import steamElements.*;
-import browser.Browser;
 import org.openqa.selenium.By;
-import org.openqa.selenium.interactions.Actions;
-import utils.Waiter;
 
 public class HomePage {
     private GlobalMenu globalMenu;

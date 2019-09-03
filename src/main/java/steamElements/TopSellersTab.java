@@ -1,10 +1,9 @@
 package steamElements;
 
-import elements.BaseForm;
 import org.openqa.selenium.By;
-import utils.Reader;
+import framework.utils.NumberReader;
 
-public class TopSpellersTab extends BaseForm {
+public class TopSellersTab {
 
     private By listDiscountsLoc = By.xpath("//div[@id='TopSellersTable']//div[@class='discount_pct']");
 
@@ -26,13 +25,13 @@ public class TopSpellersTab extends BaseForm {
         int maxDiscount = 0;
         for (int i = 0; i < Button.getListElements(listDiscountsLoc).size(); i++) {
             String line = Button.getListElements(listDiscountsLoc).get(i).getText();
-            int tempDiscount = Reader.getIntNumber(line);
+            int tempDiscount = NumberReader.getIntNumber(line);
             if (tempDiscount > maxDiscount) {
                 maxDiscount = tempDiscount;
                 indexMaxDiscount = i;
             }
         }
-        return new Button(Button.getListElements(listDiscountsLoc).get(indexMaxDiscount));
+        return new Button(Button.getListElements(listDiscountsLoc).get(indexMaxDiscount), listDiscountsLoc);
     }
 
     public Button getGameWithMinDiscount() {
@@ -40,13 +39,13 @@ public class TopSpellersTab extends BaseForm {
         int minDiscount = 100;
         for (int i = 0; i < Button.getListElements(listDiscountsLoc).size(); i++) {
             String line = Button.getListElements(listDiscountsLoc).get(i).getText();
-            int tempDiscount = Reader.getIntNumber(line);
+            int tempDiscount = NumberReader.getIntNumber(line);
             if (tempDiscount <= minDiscount) {
                 minDiscount = tempDiscount;
                 indexMinDiscount = i;
             }
         }
-        return new Button(Button.getListElements(listDiscountsLoc).get(indexMinDiscount));
+        return new Button(Button.getListElements(listDiscountsLoc).get(indexMinDiscount), listDiscountsLoc);
     }
 
 }

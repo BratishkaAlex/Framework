@@ -2,7 +2,7 @@ package steamPages;
 
 import steamElements.Label;
 import org.openqa.selenium.By;
-import utils.Reader;
+import framework.utils.NumberReader;
 
 public class GamePage {
     private By gameNameLoc = By.xpath("(//div[@id='game_area_purchase']//h1)[1]");
@@ -16,14 +16,14 @@ public class GamePage {
     }
 
     public int getDiscount() {
-        return Reader.getIntNumber(new Label(discountLoc).getText());
+        return NumberReader.getIntNumber(new Label(discountLoc).getText());
     }
 
     public Double getOriginPrice() {
-        return Reader.getDoubleNumber(new Label(originPriceLoc).getText());
+        return NumberReader.getDoubleNumber(new Label(originPriceLoc).getText());
     }
 
     public Double getFinalPrice() {
-        return Reader.getDoubleNumber(new Label(finalPriceLoc).getText());
+        return NumberReader.getDoubleNumber(new Label(finalPriceLoc).getText());
     }
 }

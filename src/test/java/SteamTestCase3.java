@@ -1,17 +1,16 @@
-import browser.Browser;
+import framework.browser.Browser;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import steamPages.GamePage;
+import steamPages.GenrePage;
 import steamPages.HomePage;
-import steamPages.IndiePage;
-import utils.LoggerUtil;
-import utils.PropertyManager;
-import utils.Waiter;
+import appUtils.LoggerUtil;
+import framework.utils.PropertyManager;
+import framework.utils.Waiter;
 
-import java.io.File;
 import java.util.logging.Level;
 
 import static org.testng.Assert.assertEquals;
@@ -23,7 +22,9 @@ public class SteamTestCase3 {
 
     @BeforeTest
     public void setUp() {
-        Browser.setUp(PropertyManager.getProperty("browser"));
+        LoggerUtil.LOGGER.log(Level.INFO, "Creating instance of webDriver");
+        Browser.setUp(PropertyManager.getProperty("src/main/resources/config.properties","browser"));
+        LoggerUtil.LOGGER.log(Level.INFO, "Maximize window");
         Browser.maximize();
         Waiter.implicitWait();
     }
@@ -31,38 +32,40 @@ public class SteamTestCase3 {
     @BeforeMethod
     public void enterUrl() {
         LoggerUtil.LOGGER.log(Level.INFO, "Go to the main Steam page");
-        Browser.enterUrl(PropertyManager.getProperty("url"));
+        Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties","url"));
     }
 
     @AfterTest
     public void closeBrowser() {
         LoggerUtil.LOGGER.log(Level.INFO, "Close browser");
         Browser.closeBrowser();
-        LoggerUtil.LOGGER.log(Level.INFO, "Delete downloaded file");
-        new File(PropertyManager.getProperty("path"), PropertyManager.getFilename()).delete();
     }
 
-  /*  private void confirmAge() {
-        CheckAgePage checkAgePage = new CheckAgePage();
-        checkAgePage.selectRightAge();
-        checkAgePage.confirmAge();
-    }
-
-    private boolean hasConfirmAgeForm(){
-        try{
-            new ConfirmAgeForm(confirmAgeLoc);
-            return true;
-        } catch (NoSuchElementException e){
-            return false;
-        }
-    }*/
-  private String getAction(){
-      switch(PropertyManager.getProperty("language")){
-          case "ru": return "Инди";
-          case "en": return "Indie";
-          default: throw new IllegalArgumentException("Unkwown language");
+    /*  private void confirmAge() {
+          CheckAgePage checkAgePage = new CheckAgePage();
+          checkAgePage.selectRightAge();
+          checkAgePage.confirmAge();
       }
-  }
+
+      private boolean hasConfirmAgeForm(){
+          try{
+              new ConfirmAgeForm(confirmAgeLoc);
+              return true;
+          } catch (NoSuchElementException e){
+              return false;
+          }
+      }*/
+    private String getIndie() {
+        switch (PropertyManager.getProperty("src/main/resources/config.properties","language")) {
+            case "ru":
+                return "Инди";
+            case "en":
+                return "Indie";
+            default:
+                throw new IllegalArgumentException("Unkwown language");
+        }
+    }
+
     @Test
     public void testCase3() {
         HomePage homePage = new HomePage();
@@ -70,19 +73,19 @@ public class SteamTestCase3 {
         assertTrue(homePage.isHomePage(), "This is not the home page");
         LoggerUtil.LOGGER.log(Level.INFO, "Click on indie category");
         homePage.navigationMenu.clickOnGenreTab();
-        homePage.genreMenu.navigateTo(getAction());
+        homePage.genreMenu.navigateTo(getIndie());
 
         LoggerUtil.LOGGER.log(Level.INFO, "Opening the chosen game's page");
-        IndiePage indiePage = new IndiePage();
-        assertTrue(indiePage.isIndieGamesPage(), "This is not the indie games page");
+        GenrePage indiePage = new GenrePage();
+        assertTrue(indiePage.isGenrePage(getIndie()), "This is not the indie games page");
         LoggerUtil.LOGGER.log(Level.INFO, "Click on top spellers");
         indiePage.tabBar.navigateToTopSellers();
         assertTrue(indiePage.isTopSellersClicked(), "Didn't click on top sellers");
         LoggerUtil.LOGGER.log(Level.INFO, "Save the game's with min discount name, discount, original and final prices");
-        String gameWithMinDiscount = indiePage.getGameName();
-        int discount = indiePage.getDiscount();
-        double originalPrice = indiePage.getOriginalPrice();
-        double finalPrice = indiePage.getFinalPrice();
+        String gameWithMinDiscount = indiePage.getNameOfGameWithMinDiscount();
+        int discount = indiePage.getMinDiscount();
+        double originalPrice = indiePage.getOriginalPriceOfGameWithMinDiscount();
+        double finalPrice = indiePage.getFinalPriceOfGameWithMinDiscount();
         LoggerUtil.LOGGER.log(Level.INFO, "Click on chosen game");
         indiePage.topSellersTab.navigateTo("MinDiscount");
 

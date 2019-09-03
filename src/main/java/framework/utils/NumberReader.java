@@ -1,9 +1,9 @@
-package utils;
+package framework.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Reader {
+public class NumberReader {
 
     public static int getIntNumber(String line) {
         Pattern pattern = Pattern.compile("\\d+");
@@ -14,6 +14,7 @@ public class Reader {
         }
         return number;
     }
+
 
     public static Double getDoubleNumber(String line) {
         Pattern pattern = Pattern.compile("\\d+.\\d+");

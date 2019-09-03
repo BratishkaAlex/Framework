@@ -1,17 +1,12 @@
 package steamElements;
 
-import elements.BaseForm;
 import org.openqa.selenium.By;
 
-public class TabBar extends BaseForm {
-    private By topSpellingLoc = By.id("tab_select_TopSellers");
-
-    public TabBar(){
-
-    }
+public class TabBar {
+    private By topSellingLoc = By.id("tab_select_TopSellers");
 
     private Button getTabButton(){
-        return new Button(topSpellingLoc);
+        return new Button(topSellingLoc);
     }
 
     public void navigateToTopSellers(){

@@ -1,10 +1,6 @@
-package browser;
+package framework.browser;
 
 import org.openqa.selenium.WebDriver;
-import utils.LoggerUtil;
-
-import java.util.ArrayList;
-import java.util.logging.Level;
 
 public class Browser {
 
@@ -20,12 +16,7 @@ public class Browser {
     }
 
     public static void maximize() {
-        LoggerUtil.LOGGER.log(Level.INFO, "Maximize window");
         driver.manage().window().maximize();
-    }
-
-    public static void changeTab(int expectedNumber) {
-        driver.switchTo().window(new ArrayList<>(driver.getWindowHandles()).get(expectedNumber));
     }
 
     public static void enterUrl(String url) {
@@ -34,7 +25,6 @@ public class Browser {
     }
 
     public static void closeBrowser() {
-        LoggerUtil.LOGGER.log(Level.INFO, "Close browser");
         driver.quit();
     }
 

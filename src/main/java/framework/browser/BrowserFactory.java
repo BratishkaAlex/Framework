@@ -1,5 +1,6 @@
-package browser;
+package framework.browser;
 
+import framework.utils.PropertyManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,24 +9,19 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import utils.LoggerUtil;
-import utils.PropertyManager;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.logging.Level;
 
 class BrowserFactory {
     static WebDriver getDriver(String browser) {
         WebDriver driver;
         switch (browser) {
             case "chrome":
-                LoggerUtil.LOGGER.log(Level.INFO, "Creating instance of chromedriver");
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver(getPropForChrome());
                 break;
             case "firefox":
-                LoggerUtil.LOGGER.log(Level.INFO, "Creating instance of firefoxdriver");
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver(getPropsForFirefox());
                 break;
@@ -38,9 +34,9 @@ class BrowserFactory {
     private static DesiredCapabilities getPropForChrome() {
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         chromePrefs.put("profile.default_content_settings.popups", 0);
-        chromePrefs.put("download.default_directory", new File(PropertyManager.getProperty("path")).getAbsolutePath());
+        chromePrefs.put("download.default_directory", new File(PropertyManager.getProperty("src/main/resources/config.properties","path")).getAbsolutePath());
         chromePrefs.put("safebrowsing.enabled", "true");
-        chromePrefs.put("intl.accept_languages", PropertyManager.getProperty("language"));
+        chromePrefs.put("intl.accept_languages", PropertyManager.getProperty("src/main/resources/config.properties","language"));
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs", chromePrefs);
         DesiredCapabilities chromeOptions = DesiredCapabilities.chrome();
@@ -51,12 +47,10 @@ class BrowserFactory {
 
     private static FirefoxOptions getPropsForFirefox() {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
-        firefoxOptions.addPreference("intl.accept_languages", PropertyManager.getProperty("language"));
+        firefoxOptions.addPreference("intl.accept_languages", PropertyManager.getProperty("src/main/resources/config.properties","language"));
         firefoxOptions.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-debian-package, application/octet-stream");
         firefoxOptions.addPreference("browser.download.folderList",2);
-        firefoxOptions.addPreference("browser.download.dir", new File(PropertyManager.getProperty("path")).getAbsolutePath());
+        firefoxOptions.addPreference("browser.download.dir", new File(PropertyManager.getProperty("src/main/resources/config.properties","path")).getAbsolutePath());
         return firefoxOptions;
     }
-
-
 }

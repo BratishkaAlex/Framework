@@ -1,9 +1,8 @@
-package elements;
+package framework.elements;
 
-import browser.Browser;
+import framework.browser.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import utils.Waiter;
 
 public abstract class BaseElement {
     private By loc;
@@ -14,13 +13,8 @@ public abstract class BaseElement {
         this.webElement = Browser.getDriver().findElement(loc);
     }
 
-    public BaseElement(WebElement webElement) {
+    protected void setWebElement(WebElement webElement) {
         this.webElement = webElement;
-    }
-
-    public void click() {
-        Waiter.waitForClickable(loc);
-        webElement.click();
     }
 
     public boolean isDisplayed() {
@@ -31,7 +25,15 @@ public abstract class BaseElement {
         return webElement.getText();
     }
 
-    public WebElement findElement(By loc){
+    public WebElement findElement(By loc) {
         return webElement.findElement(loc);
+    }
+
+    protected WebElement getWebElement() {
+        return this.webElement;
+    }
+
+    protected By getLoc() {
+        return this.loc;
     }
 }

@@ -1,6 +1,6 @@
 package steamElements;
 
-import elements.BaseElement;
+import framework.elements.BaseElement;
 import org.openqa.selenium.By;
 
 public class Banner extends BaseElement {
