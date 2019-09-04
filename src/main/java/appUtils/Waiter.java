@@ -29,7 +29,7 @@ public class Waiter {
 
     public static void waitForFile(File file) {
         FluentWait wait = new FluentWait(Browser.getDriver()).withTimeout(Integer.parseInt(PropertyManager.getProperty("src/main/resources/config.properties", "timeout")), TimeUnit.SECONDS).
-            pollingEvery(1, TimeUnit.SECONDS);
+                pollingEvery(1, TimeUnit.SECONDS);
         wait.until((Function) (webDriver) -> file.exists());
     }
 }

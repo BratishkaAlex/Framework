@@ -10,11 +10,14 @@ import steamPages.GamePage;
 import steamPages.GenrePage;
 import steamPages.HomePage;
 
-import static appUtils.LoggerUtil.LOGGER;
+import static framework.utils.LoggerUtil.LOGGER;
+import static framework.utils.LoggerUtil.step;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class SteamTestCase2 {
+
+    int counterSteps = 1;
 
     @BeforeTest
     public void setUp() {
@@ -29,20 +32,20 @@ public class SteamTestCase2 {
 
     @Test
     public void testCase2() {
-        LOGGER.info("Step 1. Open http://store.steampowered.com/");
+        step("Open http://store.steampowered.com/", counterSteps++);
         Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties", "url"));
 
         HomePage homePage = new HomePage();
         LOGGER.info("Check Steam store main page is opened");
         assertTrue(homePage.isHomePage(), "This is not the home page");
-        LOGGER.info("Step 2. Select Games -> Action in the top menu");
+        step("Select Games -> Action in the top menu", counterSteps++);
         homePage.getNavigationMenu().clickOnGenreTab();
         homePage.getGenreMenu().navigateTo(Utils.getGenre("Action"));
 
         GenrePage actionPage = new GenrePage();
         LOGGER.info("Check 'Browsing Action' page is opened");
         assertTrue(actionPage.isGenrePage(Utils.getGenre("Action")), "This is not the action games page");
-        LOGGER.info("Step 3. Navigate to “Top Selling” tab");
+        step("Navigate to “Top Selling” tab", counterSteps++);
         actionPage.getTabBar().navigateToTopSellers();
         LOGGER.info("Check Top Selling tab is opened");
         assertTrue(actionPage.isTopSellersClicked(), "Didn't click on top sellers");
@@ -51,8 +54,8 @@ public class SteamTestCase2 {
         int discount = actionPage.getMaxDiscount();
         double originalPrice = actionPage.getOriginalPriceOfGameWithMaxDiscount();
         double finalPrice = actionPage.getFinalPriceOfGameWithMaxDiscount();
-        LOGGER.info("Step 4. Click the game with the highest discount on the 1 page of the games list." +
-                "Enter correct age on the “Rated content” page if it’s shown");
+        step("Click the game with the highest discount on the 1 page of the games list." +
+                "Enter correct age on the “Rated content” page if it’s shown", counterSteps++);
         actionPage.getTopSellersTab().navigateTo("MaxDiscount");
 
         if (ConfirmAgeForm.IsDisplayed()) {
@@ -63,7 +66,7 @@ public class SteamTestCase2 {
         GamePage gamePage = new GamePage();
         LOGGER.info("Check selected game page is opened");
         assertTrue(gamePage.getGameName().trim().toLowerCase().contains(gameWithMaxDiscount.toLowerCase().trim().toLowerCase()), "This is not the chosen game's page");
-        LOGGER.info("Step 5. Check that game discount rate, initial and discounted prices are the same as on the step 4\n");
+        step("Check that game discount rate, initial and discounted prices are the same as on the step 4", counterSteps++);
         assertEquals(discount, gamePage.getDiscount(), "Discounts are not the same");
         assertEquals(originalPrice, gamePage.getOriginPrice(), "Origin prices are not the same");
         assertEquals(finalPrice, gamePage.getFinalPrice(), "Final prices are not the same");

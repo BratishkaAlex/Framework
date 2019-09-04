@@ -4,7 +4,8 @@ import framework.browser.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
-import static appUtils.LoggerUtil.LOGGER;
+import static framework.utils.LoggerUtil.LOGGER;
+import static framework.utils.LoggerUtil.exception;
 
 public class ConfirmAgeForm {
 
@@ -19,6 +20,7 @@ public class ConfirmAgeForm {
             Browser.getDriver().findElement(confirmAgeLoc);
             return true;
         } catch (NoSuchElementException e) {
+            exception("There is no such element", e);
             return false;
         }
     }

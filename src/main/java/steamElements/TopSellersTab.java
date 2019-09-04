@@ -3,6 +3,8 @@ package steamElements;
 import framework.utils.NumberReader;
 import org.openqa.selenium.By;
 
+import static framework.utils.LoggerUtil.LOGGER;
+
 public class TopSellersTab {
 
     private By listDiscountsLoc = By.xpath("//div[@id='TopSellersTable']//div[@class='discount_pct']");
@@ -10,9 +12,11 @@ public class TopSellersTab {
     public void navigateTo(String discountRate) {
         switch (discountRate) {
             case "MaxDiscount":
+                LOGGER.info("Search game with max discount");
                 getGameWithMaxDiscount().click();
                 break;
             case "MinDiscount":
+                LOGGER.info("Search game with min discount");
                 getGameWithMinDiscount().click();
                 break;
             default:

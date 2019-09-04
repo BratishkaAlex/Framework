@@ -3,6 +3,8 @@ package framework.browser;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 
+import static framework.utils.LoggerUtil.LOGGER;
+
 public class Browser {
 
     private static WebDriver driver = null;
@@ -14,9 +16,11 @@ public class Browser {
         if (driver == null) {
             driver = BrowserFactory.getDriver(browser, options);
         }
+        LOGGER.warning("Instance of webDriver already exists");
     }
 
     public static void maximize() {
+        LOGGER.warning("Maximize window");
         driver.manage().window().maximize();
     }
 
@@ -25,6 +29,7 @@ public class Browser {
     }
 
     public static void closeBrowser() {
+        LOGGER.warning("Close browser");
         driver.quit();
     }
 

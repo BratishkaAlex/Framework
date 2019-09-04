@@ -1,5 +1,6 @@
 package appUtils;
 
+import framework.utils.LoggerUtil;
 import framework.utils.PropertyManager;
 
 import java.util.logging.Level;
@@ -18,7 +19,7 @@ public class Utils {
         }
     }
 
-    public static String getGenre(String genre){
+    public static String getGenre(String genre) {
         switch (PropertyManager.getProperty("src/main/resources/config.properties", "language")) {
             case "ru":
                 return PropertyManager.getProperty("src/main/resources/ru.properties", genre);

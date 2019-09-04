@@ -1,5 +1,4 @@
 import Steps.Steps;
-import appUtils.LoggerUtil;
 import appUtils.Utils;
 import appUtils.Waiter;
 import framework.browser.Browser;
@@ -11,12 +10,13 @@ import steamPages.DownloadPage;
 import steamPages.HomePage;
 
 import java.io.File;
-import java.util.logging.Level;
 
-import static appUtils.LoggerUtil.LOGGER;
+import static framework.utils.LoggerUtil.LOGGER;
+import static framework.utils.LoggerUtil.step;
 import static org.testng.Assert.assertTrue;
 
 public class SteamTestCase1 {
+    int counterSteps = 1;
 
     @BeforeTest
     public void setUp() {
@@ -35,19 +35,19 @@ public class SteamTestCase1 {
 
     @Test
     public void testCase1() {
-        LOGGER.info("Step 1. Open http://store.steampowered.com/");
+        step("Open http://store.steampowered.com/", counterSteps++);
         Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties", "url"));
 
         HomePage homePage = new HomePage();
         LOGGER.info("Check Steam store main page is opened");
         assertTrue(homePage.isHomePage(), "This is not the home page");
-        LoggerUtil.LOGGER.log(Level.INFO, "Step 2. Click “Install Steam” button");
+        step("Click “Install Steam” button", counterSteps++);
         homePage.getGlobalMenu().goToInstallationPage();
 
         DownloadPage downloadPage = new DownloadPage();
         LOGGER.info("Check Steam store download page is opened");
         assertTrue(downloadPage.isDownloadPage(), "This is not the download page");
-        LoggerUtil.LOGGER.log(Level.INFO, "Step 3. Click “Install Steam Now” button -> download steam app");
+        step("Click “Install Steam Now” button -> download steam app", counterSteps++);
         downloadPage.downloadSteam();
 
         LOGGER.info("Check Steam app setup file is downloaded");
