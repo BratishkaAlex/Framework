@@ -8,8 +8,8 @@ import steamElements.TabBar;
 import steamElements.TopSellersTab;
 
 public class GenrePage {
-    public TabBar tabBar;
-    public TopSellersTab topSellersTab;
+    private TabBar tabBar;
+    private TopSellersTab topSellersTab;
 
     private String pattern = "//h2[@class='pageheader' and contains(text(), '%s')]";
     private By originPriceLoc = By.xpath("parent::div//div[@class='discount_original_price']");
@@ -20,6 +20,14 @@ public class GenrePage {
     public GenrePage() {
         tabBar = new TabBar();
         topSellersTab = new TopSellersTab();
+    }
+
+    public TabBar getTabBar() {
+        return tabBar;
+    }
+
+    public TopSellersTab getTopSellersTab() {
+        return topSellersTab;
     }
 
     public boolean isGenrePage(String genre) {
@@ -61,6 +69,5 @@ public class GenrePage {
     public String getNameOfGameWithMinDiscount() {
         return topSellersTab.getGameWithMinDiscount().findElement(gameNameLoc).getText();
     }
-
 
 }

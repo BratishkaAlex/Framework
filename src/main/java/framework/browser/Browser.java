@@ -1,5 +1,6 @@
 package framework.browser;
 
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 
 public class Browser {
@@ -9,9 +10,9 @@ public class Browser {
     private Browser() {
     }
 
-    public static void setUp(String browser) {
+    public static void setUp(String browser, MutableCapabilities options) {
         if (driver == null) {
-            driver = BrowserFactory.getDriver(browser);
+            driver = BrowserFactory.getDriver(browser, options);
         }
     }
 
@@ -20,7 +21,6 @@ public class Browser {
     }
 
     public static void enterUrl(String url) {
-
         driver.get(url);
     }
 

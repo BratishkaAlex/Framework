@@ -10,7 +10,6 @@ public class LoggerUtil {
     public static Logger LOGGER;
 
     static {
-
         try (FileInputStream ins = new FileInputStream("src/main/resources/log.config")) {
             LogManager.getLogManager().readConfiguration(ins);
             LOGGER = java.util.logging.Logger.getLogger("TestLogger");

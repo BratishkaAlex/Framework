@@ -6,7 +6,6 @@ import steamElements.Label;
 
 public class GamePage {
     private By gameNameLoc = By.xpath("(//div[@id='game_area_purchase']//h1)[1]");
-    private By gameNameReserveLoc = By.xpath("//div[@class='page_content']//h2[@class='pageheader']");
     private By discountLoc = By.xpath("(//div[@class='game_purchase_action']//div[@class='discount_pct'])[1]");
     private By originPriceLoc = By.xpath("(//div[@class='game_purchase_action']//div[@class='discount_original_price'])[1]");
     private By finalPriceLoc = By.xpath("(//div[@class='game_purchase_action']//div[@class='discount_final_price'])[1]");

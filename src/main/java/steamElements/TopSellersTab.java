@@ -40,7 +40,7 @@ public class TopSellersTab {
         for (int i = 0; i < Button.getListElements(listDiscountsLoc).size(); i++) {
             String line = Button.getListElements(listDiscountsLoc).get(i).getText();
             int tempDiscount = NumberReader.getIntNumber(line);
-            if (tempDiscount <= minDiscount) {
+            if (tempDiscount < minDiscount) {
                 minDiscount = tempDiscount;
                 indexMinDiscount = i;
             }

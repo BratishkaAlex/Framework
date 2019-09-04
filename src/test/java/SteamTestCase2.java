@@ -1,107 +1,69 @@
-import appUtils.LoggerUtil;
+import Steps.Steps;
+import appUtils.Utils;
 import framework.browser.Browser;
 import framework.utils.PropertyManager;
-import framework.utils.Waiter;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import steamPages.CheckAgePage;
+import steamElements.ConfirmAgeForm;
 import steamPages.GamePage;
 import steamPages.GenrePage;
 import steamPages.HomePage;
 
-import java.util.logging.Level;
-
+import static appUtils.LoggerUtil.LOGGER;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class SteamTestCase2 {
 
-    private By confirmAgeLoc = By.xpath("//div[@class='main_content_ctn']");
-
     @BeforeTest
     public void setUp() {
-        LoggerUtil.LOGGER.log(Level.INFO, "Creating instance of webDriver");
-        Browser.setUp(PropertyManager.getProperty("src/main/resources/config.properties", "browser"));
-        LoggerUtil.LOGGER.log(Level.INFO, "Maximize window");
-        Browser.maximize();
-        Waiter.implicitWait();
+        Steps.setUpBrowser();
     }
 
-    @BeforeMethod
-    public void enterUrl() {
-        LoggerUtil.LOGGER.log(Level.INFO, "Go to the main Steam page");
-        Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties", "url"));
-    }
 
     @AfterTest
     public void closeBrowser() {
-        LoggerUtil.LOGGER.log(Level.INFO, "Close browser");
-        Browser.closeBrowser();
-    }
-
-    private void confirmAge() {
-        CheckAgePage checkAgePage = new CheckAgePage();
-        checkAgePage.selectRightAge();
-        checkAgePage.confirmAge();
-    }
-
-    private boolean hasConfirmAgeForm() {
-        try {
-            Browser.getDriver().findElement(confirmAgeLoc);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    private String getAction() {
-        switch (PropertyManager.getProperty("src/main/resources/config.properties", "language")) {
-            case "ru":
-                return "Экшен";
-            case "en":
-                return "Action";
-            default:
-                throw new IllegalArgumentException("Unknown language");
-        }
+        Steps.closeBrowser();
     }
 
     @Test
     public void testCase2() {
-        HomePage homePage = new HomePage();
-        LoggerUtil.LOGGER.log(Level.INFO, "Check opening the main page");
-        assertTrue(homePage.isHomePage(), "This is not the home page");
-        LoggerUtil.LOGGER.log(Level.INFO, "Click on action category");
-        homePage.navigationMenu.clickOnGenreTab();
-        homePage.genreMenu.navigateTo(getAction());
+        LOGGER.info("Step 1. Open http://store.steampowered.com/");
+        Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties", "url"));
 
-        LoggerUtil.LOGGER.log(Level.INFO, "Opening the action game's page");
+        HomePage homePage = new HomePage();
+        LOGGER.info("Check Steam store main page is opened");
+        assertTrue(homePage.isHomePage(), "This is not the home page");
+        LOGGER.info("Step 2. Select Games -> Action in the top menu");
+        homePage.getNavigationMenu().clickOnGenreTab();
+        homePage.getGenreMenu().navigateTo(Utils.getGenre("Action"));
+
         GenrePage actionPage = new GenrePage();
-        assertTrue(actionPage.isGenrePage(getAction()), "This is not the action games page");
-        LoggerUtil.LOGGER.log(Level.INFO, "Click on top spellers");
-        actionPage.tabBar.navigateToTopSellers();
+        LOGGER.info("Check 'Browsing Action' page is opened");
+        assertTrue(actionPage.isGenrePage(Utils.getGenre("Action")), "This is not the action games page");
+        LOGGER.info("Step 3. Navigate to “Top Selling” tab");
+        actionPage.getTabBar().navigateToTopSellers();
+        LOGGER.info("Check Top Selling tab is opened");
         assertTrue(actionPage.isTopSellersClicked(), "Didn't click on top sellers");
-        LoggerUtil.LOGGER.log(Level.INFO, "Save the game's with max discount name, discount, original and final prices");
+        LOGGER.info("Save the game's with max discount name, discount, original and final prices");
         String gameWithMaxDiscount = actionPage.getNameOfGameWithMaxDiscount();
         int discount = actionPage.getMaxDiscount();
         double originalPrice = actionPage.getOriginalPriceOfGameWithMaxDiscount();
         double finalPrice = actionPage.getFinalPriceOfGameWithMaxDiscount();
-        LoggerUtil.LOGGER.log(Level.INFO, "Click on chosen game");
-        actionPage.topSellersTab.navigateTo("MaxDiscount");
+        LOGGER.info("Step 4. Click the game with the highest discount on the 1 page of the games list." +
+                "Enter correct age on the “Rated content” page if it’s shown");
+        actionPage.getTopSellersTab().navigateTo("MaxDiscount");
 
-        if (hasConfirmAgeForm()) {
-            LoggerUtil.LOGGER.log(Level.INFO, "Confirm right age");
-            confirmAge();
+        if (ConfirmAgeForm.IsDisplayed()) {
+            LOGGER.info("Confirm right age");
+            Steps.confirmAge();
         }
 
-        LoggerUtil.LOGGER.log(Level.INFO, "Opening the chosen game's page");
         GamePage gamePage = new GamePage();
-        LoggerUtil.LOGGER.log(Level.INFO, "Checking all saved properties with properties from current page");
+        LOGGER.info("Check selected game page is opened");
         assertTrue(gamePage.getGameName().trim().toLowerCase().contains(gameWithMaxDiscount.toLowerCase().trim().toLowerCase()), "This is not the chosen game's page");
-        //assertEquals(gameWithMaxDiscount.toLowerCase().trim(), gamePage.getGameName().toLowerCase().trim(), "This is not the chosen game's page");
+        LOGGER.info("Step 5. Check that game discount rate, initial and discounted prices are the same as on the step 4\n");
         assertEquals(discount, gamePage.getDiscount(), "Discounts are not the same");
         assertEquals(originalPrice, gamePage.getOriginPrice(), "Origin prices are not the same");
         assertEquals(finalPrice, gamePage.getFinalPrice(), "Final prices are not the same");

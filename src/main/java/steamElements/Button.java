@@ -2,7 +2,7 @@ package steamElements;
 
 import framework.browser.Browser;
 import framework.elements.BaseElement;
-import framework.utils.Waiter;
+import appUtils.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

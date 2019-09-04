@@ -1,10 +1,10 @@
+import Steps.Steps;
 import appUtils.LoggerUtil;
 import appUtils.Utils;
-import framework.utils.PropertyManager;
-import framework.utils.Waiter;
+import appUtils.Waiter;
 import framework.browser.Browser;
+import framework.utils.PropertyManager;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import steamPages.DownloadPage;
@@ -13,47 +13,44 @@ import steamPages.HomePage;
 import java.io.File;
 import java.util.logging.Level;
 
+import static appUtils.LoggerUtil.LOGGER;
 import static org.testng.Assert.assertTrue;
 
 public class SteamTestCase1 {
 
     @BeforeTest
     public void setUp() {
-        LoggerUtil.LOGGER.log(Level.INFO, "Creating instance of webDriver");
-        Browser.setUp(PropertyManager.getProperty("src/main/resources/config.properties", "browser"));
-        LoggerUtil.LOGGER.log(Level.INFO, "Maximize window");
-        Browser.maximize();
-        Waiter.implicitWait();
-        LoggerUtil.LOGGER.log(Level.INFO, "Delete downloaded file, if it exists");
+        Steps.setUpBrowser();
+        LOGGER.info("Delete downloaded file, if it exists");
         File downloadFile = new File(PropertyManager.getProperty("src/main/resources/config.properties", "path"), Utils.getFilename());
         if (downloadFile.exists()) {
             downloadFile.delete();
         }
     }
 
-    @BeforeMethod
-    public void enterUrl() {
-        LoggerUtil.LOGGER.log(Level.INFO, "Go to the main Steam page");
-        Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties", "url"));
-    }
-
     @AfterTest
     public void closeBrowser() {
-        LoggerUtil.LOGGER.log(Level.INFO, "Close browser");
-        Browser.closeBrowser();
+        Steps.closeBrowser();
     }
 
     @Test
     public void testCase1() {
+        LOGGER.info("Step 1. Open http://store.steampowered.com/");
+        Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties", "url"));
+
         HomePage homePage = new HomePage();
+        LOGGER.info("Check Steam store main page is opened");
         assertTrue(homePage.isHomePage(), "This is not the home page");
+        LoggerUtil.LOGGER.log(Level.INFO, "Step 2. Click “Install Steam” button");
         homePage.getGlobalMenu().goToInstallationPage();
 
         DownloadPage downloadPage = new DownloadPage();
+        LOGGER.info("Check Steam store download page is opened");
         assertTrue(downloadPage.isDownloadPage(), "This is not the download page");
+        LoggerUtil.LOGGER.log(Level.INFO, "Step 3. Click “Install Steam Now” button -> download steam app");
         downloadPage.downloadSteam();
 
-
+        LOGGER.info("Check Steam app setup file is downloaded");
         File downloadFile = new File(PropertyManager.getProperty("src/main/resources/config.properties", "path"), Utils.getFilename());
         Waiter.waitForFile(downloadFile);
         assertTrue(downloadFile.exists(), "There is no such file");

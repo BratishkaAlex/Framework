@@ -8,8 +8,8 @@ import steamElements.NavigationMenu;
 
 public class HomePage {
     private GlobalMenu globalMenu;
-    public GenreMenu genreMenu;
-    public NavigationMenu navigationMenu;
+    private GenreMenu genreMenu;
+    private NavigationMenu navigationMenu;
     private By homePageBannerLoc = By.xpath("//div[@class='home_page_content']");
 
     public HomePage() {
@@ -26,5 +26,11 @@ public class HomePage {
         return globalMenu;
     }
 
+    public NavigationMenu getNavigationMenu() {
+        return navigationMenu;
+    }
 
+    public GenreMenu getGenreMenu() {
+        return genreMenu;
+    }
 }
