@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="FirstSuite">
-    <test name="SteamTestCase1">
+    <test name="testCases.SteamTestCase1">
         <classes>
-            <class name="SteamTestCase2"/>
-            <class name="SteamTestCase3"/>
+            <class name="testCases.SteamTestCase1"/>
         </classes>
     </test>
 </suite>

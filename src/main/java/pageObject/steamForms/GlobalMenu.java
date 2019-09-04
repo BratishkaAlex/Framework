@@ -1,5 +1,6 @@
-package steamElements;
+package pageObject.steamForms;
 
+import framework.elements.Button;
 import org.openqa.selenium.By;
 
 public class GlobalMenu {

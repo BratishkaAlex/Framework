@@ -1,13 +1,15 @@
+package testCases;
+
 import Steps.Steps;
 import appUtils.Utils;
-import appUtils.Waiter;
 import framework.browser.Browser;
 import framework.utils.PropertyManager;
+import framework.utils.Waiter;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import steamPages.DownloadPage;
-import steamPages.HomePage;
+import pageObject.steamPages.DownloadPage;
+import pageObject.steamPages.HomePage;
 
 import java.io.File;
 
@@ -22,7 +24,7 @@ public class SteamTestCase1 {
     public void setUp() {
         Steps.setUpBrowser();
         LOGGER.info("Delete downloaded file, if it exists");
-        File downloadFile = new File(PropertyManager.getProperty("src/main/resources/config.properties", "path"), Utils.getFilename());
+        File downloadFile = new File(PropertyManager.getConfigProperty("path"), Utils.getFilename());
         if (downloadFile.exists()) {
             downloadFile.delete();
         }
@@ -36,7 +38,7 @@ public class SteamTestCase1 {
     @Test
     public void testCase1() {
         step("Open http://store.steampowered.com/", counterSteps++);
-        Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties", "url"));
+        Browser.enterUrl(PropertyManager.getConfigProperty("url"));
 
         HomePage homePage = new HomePage();
         LOGGER.info("Check Steam store main page is opened");
@@ -51,7 +53,7 @@ public class SteamTestCase1 {
         downloadPage.downloadSteam();
 
         LOGGER.info("Check Steam app setup file is downloaded");
-        File downloadFile = new File(PropertyManager.getProperty("src/main/resources/config.properties", "path"), Utils.getFilename());
+        File downloadFile = new File(PropertyManager.getConfigProperty("path"), Utils.getFilename());
         Waiter.waitForFile(downloadFile);
         assertTrue(downloadFile.exists(), "There is no such file");
     }

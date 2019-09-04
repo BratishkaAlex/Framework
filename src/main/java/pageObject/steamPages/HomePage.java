@@ -1,10 +1,10 @@
-package steamPages;
+package pageObject.steamPages;
 
 import org.openqa.selenium.By;
+import pageObject.steamForms.GenreMenu;
+import pageObject.steamForms.GlobalMenu;
+import pageObject.steamForms.NavigationMenu;
 import steamElements.Banner;
-import steamElements.GenreMenu;
-import steamElements.GlobalMenu;
-import steamElements.NavigationMenu;
 
 public class HomePage {
     private GlobalMenu globalMenu;

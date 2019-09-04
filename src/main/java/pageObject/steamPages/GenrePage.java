@@ -1,11 +1,11 @@
-package steamPages;
+package pageObject.steamPages;
 
+import framework.elements.Label;
 import framework.utils.NumberReader;
 import org.openqa.selenium.By;
+import pageObject.steamForms.TabBar;
+import pageObject.steamForms.TopSellersTab;
 import steamElements.Div;
-import steamElements.Label;
-import steamElements.TabBar;
-import steamElements.TopSellersTab;
 
 public class GenrePage {
     private TabBar tabBar;

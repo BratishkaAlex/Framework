@@ -1,6 +1,5 @@
 package framework.browser;
 
-import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 
 import static framework.utils.LoggerUtil.LOGGER;
@@ -12,16 +11,16 @@ public class Browser {
     private Browser() {
     }
 
-    public static void setUp(String browser, MutableCapabilities options) {
+    public static WebDriver getDriver() {
         if (driver == null) {
-            driver = BrowserFactory.getDriver(browser, options);
+            driver = BrowserFactory.getDriver();
         }
-        LOGGER.warning("Instance of webDriver already exists");
+        return driver;
     }
 
     public static void maximize() {
+        getDriver().manage().window().maximize();
         LOGGER.warning("Maximize window");
-        driver.manage().window().maximize();
     }
 
     public static void enterUrl(String url) {
@@ -30,10 +29,6 @@ public class Browser {
 
     public static void closeBrowser() {
         LOGGER.warning("Close browser");
-        driver.quit();
-    }
-
-    public static WebDriver getDriver() {
-        return driver;
+        getDriver().quit();
     }
 }

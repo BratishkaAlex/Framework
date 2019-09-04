@@ -1,4 +1,4 @@
-package steamElements;
+package pageObject.steamForms;
 
 import framework.browser.Browser;
 import org.openqa.selenium.By;

@@ -1,21 +1,22 @@
+package testCases;
+
 import Steps.Steps;
-import appUtils.Utils;
 import framework.browser.Browser;
 import framework.utils.PropertyManager;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import steamElements.ConfirmAgeForm;
-import steamPages.GamePage;
-import steamPages.GenrePage;
-import steamPages.HomePage;
+import pageObject.steamForms.ConfirmAgeForm;
+import pageObject.steamPages.GamePage;
+import pageObject.steamPages.GenrePage;
+import pageObject.steamPages.HomePage;
 
 import static framework.utils.LoggerUtil.LOGGER;
 import static framework.utils.LoggerUtil.step;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class SteamTestCase2 {
+public class SteamTestCase3 {
 
     int counterSteps = 1;
 
@@ -31,32 +32,32 @@ public class SteamTestCase2 {
     }
 
     @Test
-    public void testCase2() {
+    public void testCase3() {
         step("Open http://store.steampowered.com/", counterSteps++);
-        Browser.enterUrl(PropertyManager.getProperty("src/main/resources/config.properties", "url"));
+        Browser.enterUrl(PropertyManager.getConfigProperty("url"));
 
         HomePage homePage = new HomePage();
         LOGGER.info("Check Steam store main page is opened");
         assertTrue(homePage.isHomePage(), "This is not the home page");
-        step("Select Games -> Action in the top menu", counterSteps++);
+        step("Select Games -> Indie in the top menu", counterSteps++);
         homePage.getNavigationMenu().clickOnGenreTab();
-        homePage.getGenreMenu().navigateTo(Utils.getGenre("Action"));
+        homePage.getGenreMenu().navigateTo(PropertyManager.getWordFromDictionary("Indie"));
 
-        GenrePage actionPage = new GenrePage();
-        LOGGER.info("Check 'Browsing Action' page is opened");
-        assertTrue(actionPage.isGenrePage(Utils.getGenre("Action")), "This is not the action games page");
+        GenrePage indiePage = new GenrePage();
+        LOGGER.info("Check 'Browsing Indie' page is opened");
+        assertTrue(indiePage.isGenrePage(PropertyManager.getWordFromDictionary("Indie")), "This is not the indie games page");
         step("Navigate to “Top Selling” tab", counterSteps++);
-        actionPage.getTabBar().navigateToTopSellers();
+        indiePage.getTabBar().navigateToTopSellers();
         LOGGER.info("Check Top Selling tab is opened");
-        assertTrue(actionPage.isTopSellersClicked(), "Didn't click on top sellers");
-        LOGGER.info("Save the game's with max discount name, discount, original and final prices");
-        String gameWithMaxDiscount = actionPage.getNameOfGameWithMaxDiscount();
-        int discount = actionPage.getMaxDiscount();
-        double originalPrice = actionPage.getOriginalPriceOfGameWithMaxDiscount();
-        double finalPrice = actionPage.getFinalPriceOfGameWithMaxDiscount();
-        step("Click the game with the highest discount on the 1 page of the games list." +
-                "Enter correct age on the “Rated content” page if it’s shown", counterSteps++);
-        actionPage.getTopSellersTab().navigateTo("MaxDiscount");
+        assertTrue(indiePage.isTopSellersClicked(), "Didn't click on top sellers");
+        LOGGER.info("Save the game's with min discount name, discount, original and final prices");
+        String gameWithMinDiscount = indiePage.getNameOfGameWithMinDiscount();
+        int discount = indiePage.getMinDiscount();
+        double originalPrice = indiePage.getOriginalPriceOfGameWithMinDiscount();
+        double finalPrice = indiePage.getFinalPriceOfGameWithMinDiscount();
+        step("Click the game with the lowest discount (but discount > 0) on the 1 page of the games list." +
+            "Enter correct age on the “Rated content” page if it’s shown", counterSteps++);
+        indiePage.getTopSellersTab().navigateTo("MinDiscount");
 
         if (ConfirmAgeForm.IsDisplayed()) {
             LOGGER.info("Confirm right age");
@@ -65,7 +66,7 @@ public class SteamTestCase2 {
 
         GamePage gamePage = new GamePage();
         LOGGER.info("Check selected game page is opened");
-        assertTrue(gamePage.getGameName().trim().toLowerCase().contains(gameWithMaxDiscount.toLowerCase().trim().toLowerCase()), "This is not the chosen game's page");
+        assertTrue(gamePage.getGameName().toLowerCase().trim().contains(gameWithMinDiscount.toLowerCase().trim()), "This is not the chosen game's page");
         step("Check that game discount rate, initial and discounted prices are the same as on the step 4", counterSteps++);
         assertEquals(discount, gamePage.getDiscount(), "Discounts are not the same");
         assertEquals(originalPrice, gamePage.getOriginPrice(), "Origin prices are not the same");

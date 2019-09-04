@@ -11,7 +11,11 @@ import static framework.utils.LoggerUtil.exception;
 
 public class PropertyManager {
 
-    public static String getProperty(String pathToPropertiesFile, String property) {
+    private static String pathToPropertiesFile = "src/main/resources/config.properties";
+    private static String pathToEnDictionary = "src/main/resources/en.properties";
+    private static String pathToRuDictionary = "src/main/resources/ru.properties";
+
+    public static String getConfigProperty(String property) {
         LOGGER.warning("Reading property " + property + " from .properties file, can be FileNotFoundException or IOException");
         Properties properties = new Properties();
         try {
@@ -24,6 +28,30 @@ public class PropertyManager {
             System.out.println("Error in reading .property file");
         }
         return properties.getProperty(property);
+    }
+
+    public static String getWordFromDictionary(String word) {
+        LOGGER.warning("Reading word " + word + " from .properties dictionary, can be FileNotFoundException or IOException");
+        Properties properties = new Properties();
+        try {
+            switch (PropertyManager.getConfigProperty("language")) {
+                case "ru":
+                    properties.load(new FileReader(new File(pathToRuDictionary)));
+                    break;
+                case "en":
+                    properties.load(new FileReader(new File(pathToEnDictionary)));
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown language");
+            }
+        } catch (FileNotFoundException e) {
+            exception("FileNotFoundException", e);
+            System.out.println("Config.property wasn't found");
+        } catch (IOException e) {
+            exception("IOException", e);
+            System.out.println("Error in reading .property file");
+        }
+        return properties.getProperty(word);
     }
 
 }

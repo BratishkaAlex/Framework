@@ -1,6 +1,5 @@
-package steamElements;
+package framework.elements;
 
-import framework.elements.BaseElement;
 import org.openqa.selenium.By;
 
 public class Label extends BaseElement {

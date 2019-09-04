@@ -1,5 +1,6 @@
-package steamElements;
+package pageObject.steamForms;
 
+import framework.elements.Button;
 import framework.utils.NumberReader;
 import org.openqa.selenium.By;
 

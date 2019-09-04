@@ -1,8 +1,7 @@
-package steamElements;
+package framework.elements;
 
 import framework.browser.Browser;
-import framework.elements.BaseElement;
-import appUtils.Waiter;
+import framework.utils.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

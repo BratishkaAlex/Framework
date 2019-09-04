@@ -1,11 +1,11 @@
-package steamPages;
+package pageObject.steamPages;
 
+import framework.elements.Button;
 import org.openqa.selenium.By;
-import steamElements.Button;
 
 public class CheckAgePage {
     private By rightAgeLoc = By.xpath("//select[@id='ageYear']//option[@value='1996']");
-    private By viewPageLoc = By.xpath("//a[@class='btnv6_blue_hoverfade btn_medium']");
+    private By viewPageLoc = By.xpath("//a[contains(@class, 'btn_medium')]");
 
     private Button getRightAge() {
         return new Button(rightAgeLoc);
