@@ -6,7 +6,7 @@ import framework.utils.PropertyManager;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import pageObject.steamForms.ConfirmAgeForm;
+import pageObject.steamPages.CheckAgePage;
 import pageObject.steamPages.GamePage;
 import pageObject.steamPages.GenrePage;
 import pageObject.steamPages.HomePage;
@@ -59,7 +59,7 @@ public class SteamTestCase3 {
             "Enter correct age on the “Rated content” page if it’s shown", counterSteps++);
         indiePage.getTopSellersTab().navigateTo("MinDiscount");
 
-        if (ConfirmAgeForm.IsDisplayed()) {
+        if (CheckAgePage.IsDisplayed()) {
             LOGGER.info("Confirm right age");
             Steps.confirmAge();
         }
