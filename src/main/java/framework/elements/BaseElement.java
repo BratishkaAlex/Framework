@@ -11,7 +11,7 @@ public abstract class BaseElement {
     private WebElement webElement;
 
     public BaseElement(By loc) {
-        LOGGER.info("Creating instance of custom webElement");
+        LOGGER.info(String.format("Creating instance of custom %s", this.getClass().getSimpleName()));
         this.loc = loc;
         this.webElement = Browser.getDriver().findElement(loc);
     }
@@ -21,12 +21,12 @@ public abstract class BaseElement {
     }
 
     public boolean isDisplayed() {
-        LOGGER.info("Checking displaying of custom webElement");
+        LOGGER.info(String.format("Checking displaying of custom %s", this.getClass().getSimpleName()));
         return webElement.isDisplayed();
     }
 
     public String getText() {
-        LOGGER.info("Getting text of custom webElement");
+        LOGGER.info(String.format("Getting text of custom %s", this.getClass().getSimpleName()));
         return webElement.getText();
     }
 
