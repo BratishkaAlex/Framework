@@ -15,8 +15,9 @@ public class Steps {
     public static void setUpBrowser() {
         new LoggerUtil("src/main/resources/log.config");
         Browser.maximize();
-        Waiter.implicitWait();
+        Waiter.implicitWaitDefault();
     }
+
 
     public static void closeBrowser() {
         Browser.closeBrowser();

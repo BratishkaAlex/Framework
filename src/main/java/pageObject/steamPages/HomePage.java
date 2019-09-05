@@ -1,10 +1,10 @@
 package pageObject.steamPages;
 
+import appUtils.Utils;
 import org.openqa.selenium.By;
 import pageObject.steamForms.GenreMenu;
 import pageObject.steamForms.GlobalMenu;
 import pageObject.steamForms.NavigationMenu;
-import steamElements.Banner;
 
 public class HomePage {
     private GlobalMenu globalMenu;
@@ -19,7 +19,7 @@ public class HomePage {
     }
 
     public boolean isHomePage() {
-        return new Banner(homePageBannerLoc).isDisplayed();
+        return Utils.elementIsDisplayed(homePageBannerLoc);
     }
 
     public GlobalMenu getGlobalMenu() {

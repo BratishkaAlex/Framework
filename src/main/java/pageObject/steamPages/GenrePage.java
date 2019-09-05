@@ -1,11 +1,11 @@
 package pageObject.steamPages;
 
+import appUtils.Utils;
 import framework.elements.Label;
 import framework.utils.NumberReader;
 import org.openqa.selenium.By;
 import pageObject.steamForms.TabBar;
 import pageObject.steamForms.TopSellersTab;
-import steamElements.Div;
 
 public class GenrePage {
     private TabBar tabBar;
@@ -35,7 +35,51 @@ public class GenrePage {
     }
 
     public boolean isTopSellersClicked() {
-        return new Div(topSellersTabLoc).isDisplayed();
+        return Utils.elementIsDisplayed(topSellersTabLoc);
+    }
+
+    public String getName(String discountRate) {
+        switch (discountRate) {
+            case "MaxDiscount":
+                return getNameOfGameWithMaxDiscount();
+            case "MinDiscount":
+                return getNameOfGameWithMinDiscount();
+            default:
+                throw new IllegalArgumentException("Wrong discount rate");
+        }
+    }
+
+    public int getDiscount(String discountRate) {
+        switch (discountRate) {
+            case "MaxDiscount":
+                return getMaxDiscount();
+            case "MinDiscount":
+                return getMinDiscount();
+            default:
+                throw new IllegalArgumentException("Wrong discount rate");
+        }
+    }
+
+    public Double getOriginalPrice(String discountRate) {
+        switch (discountRate) {
+            case "MaxDiscount":
+                return getOriginalPriceOfGameWithMaxDiscount();
+            case "MinDiscount":
+                return getOriginalPriceOfGameWithMinDiscount();
+            default:
+                throw new IllegalArgumentException("Wrong discount rate");
+        }
+    }
+
+    public Double getFinalPrice(String discountRate) {
+        switch (discountRate) {
+            case "MaxDiscount":
+                return getFinalPriceOfGameWithMaxDiscount();
+            case "MinDiscount":
+                return getFinalPriceOfGameWithMinDiscount();
+            default:
+                throw new IllegalArgumentException("Wrong discount rate");
+        }
     }
 
     public int getMaxDiscount() {

@@ -16,7 +16,7 @@ public class PropertyManager {
     private static String pathToRuDictionary = "src/main/resources/ru.properties";
 
     public static String getConfigProperty(String property) {
-        LOGGER.warning("Reading property " + property + " from .properties file, can be FileNotFoundException or IOException");
+        LOGGER.warning("Reading property '" + property + "' from .properties file, can be FileNotFoundException or IOException");
         Properties properties = new Properties();
         try {
             properties.load(new FileReader(new File(pathToPropertiesFile)));
@@ -31,7 +31,7 @@ public class PropertyManager {
     }
 
     public static String getWordFromDictionary(String word) {
-        LOGGER.warning("Reading word " + word + " from .properties dictionary, can be FileNotFoundException or IOException");
+        LOGGER.warning("Reading word '" + word + "' from .properties dictionary, can be FileNotFoundException or IOException");
         Properties properties = new Properties();
         try {
             switch (PropertyManager.getConfigProperty("language")) {

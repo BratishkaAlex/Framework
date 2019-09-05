@@ -20,7 +20,7 @@ public class LoggerUtil {
     }
 
     public static void step(String message, int counter) {
-        LOGGER.info(String.format("<<<<<<<<Step %d>>>>>>>>>>>>.\n%s", counter, message));
+        LOGGER.info(String.format("\n<<<<<<<<Step %d>>>>>>>>>>>>.\n%s\n", counter, message));
     }
 
     public static void exception(String message, Exception e) {

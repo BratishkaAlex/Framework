@@ -1,5 +1,6 @@
 package pageObject.steamPages;
 
+import appUtils.Utils;
 import framework.browser.Browser;
 import framework.elements.Button;
 import framework.utils.Waiter;
@@ -31,12 +32,15 @@ public class CheckAgePage {
     }
 
     public static boolean IsDisplayed() {
+        Waiter.implicitWait(1);
         LOGGER.warning("Checking existing confirm age page, can be NoSuchElementException");
         try {
-            Browser.getDriver().findElement(confirmAgeLoc);
-            return true;
+            boolean isDisplayed = Utils.elementIsDisplayed(confirmAgeLoc);
+            Waiter.implicitWaitDefault();
+            return isDisplayed;
         } catch (NoSuchElementException e) {
             exception("There is no such element", e);
+            Waiter.implicitWaitDefault();
             return false;
         }
     }

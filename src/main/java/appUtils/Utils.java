@@ -1,6 +1,8 @@
 package appUtils;
 
+import framework.browser.Browser;
 import framework.utils.LoggerUtil;
+import org.openqa.selenium.By;
 
 import java.util.logging.Level;
 
@@ -16,5 +18,9 @@ public class Utils {
             default:
                 throw new IllegalArgumentException("Unknown OS");
         }
+    }
+
+    public static boolean elementIsDisplayed(By loc) {
+        return Browser.getDriver().findElement(loc).isDisplayed();
     }
 }
