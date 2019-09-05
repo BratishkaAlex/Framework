@@ -20,7 +20,7 @@ public class Browser {
 
     public static void maximize() {
         getDriver().manage().window().maximize();
-        LOGGER.warning("Maximize window");
+        LOGGER.warn("Maximize window");
     }
 
     public static void enterUrl(String url) {
@@ -28,7 +28,7 @@ public class Browser {
     }
 
     public static void closeBrowser() {
-        LOGGER.warning("Close browser");
+        LOGGER.warn("Close browser");
         getDriver().quit();
     }
 }

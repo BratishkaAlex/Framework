@@ -1,14 +1,12 @@
 package pageObject.steamPages;
 
 import appUtils.Utils;
-import framework.browser.Browser;
 import framework.elements.Button;
 import framework.utils.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
 import static framework.utils.LoggerUtil.LOGGER;
-import static framework.utils.LoggerUtil.exception;
 
 public class CheckAgePage {
     private By rightAgeLoc = By.xpath("//select[@id='ageYear']//option[@value='1996']");
@@ -33,13 +31,13 @@ public class CheckAgePage {
 
     public static boolean IsDisplayed() {
         Waiter.implicitWait(1);
-        LOGGER.warning("Checking existing confirm age page, can be NoSuchElementException");
+        LOGGER.warn("Checking existing confirm age page, can be NoSuchElementException");
         try {
             boolean isDisplayed = Utils.elementIsDisplayed(confirmAgeLoc);
             Waiter.implicitWaitDefault();
             return isDisplayed;
         } catch (NoSuchElementException e) {
-            exception("There is no such element", e);
+            LOGGER.error("There is no such element", e);
             Waiter.implicitWaitDefault();
             return false;
         }

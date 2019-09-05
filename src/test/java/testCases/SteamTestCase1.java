@@ -6,6 +6,7 @@ import framework.browser.Browser;
 import framework.utils.PropertyManager;
 import framework.utils.Waiter;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pageObject.steamPages.DownloadPage;
@@ -18,16 +19,23 @@ import static framework.utils.LoggerUtil.step;
 import static org.testng.Assert.assertTrue;
 
 public class SteamTestCase1 {
+
     int counterSteps = 1;
 
     @BeforeTest
     public void setUp() {
+        Steps.setUpLogger(this.getClass().getName());
         Steps.setUpBrowser();
         LOGGER.info("Delete downloaded file, if it exists");
         File downloadFile = new File(PropertyManager.getConfigProperty("path"), Utils.getFilename());
         if (downloadFile.exists()) {
             downloadFile.delete();
         }
+    }
+
+    @BeforeMethod
+    public void initiateCounter() {
+        counterSteps = 1;
     }
 
     @AfterTest

@@ -1,15 +1,14 @@
 package appUtils;
 
 import framework.browser.Browser;
-import framework.utils.LoggerUtil;
 import org.openqa.selenium.By;
 
-import java.util.logging.Level;
+import static framework.utils.LoggerUtil.LOGGER;
 
 public class Utils {
 
     public static String getFilename() {
-        LoggerUtil.LOGGER.log(Level.INFO, "Get filename according to OS");
+        LOGGER.info("Get filename according to OS");
         switch (System.getProperty("os.name")) {
             case "Linux":
                 return "steam_latest.deb";

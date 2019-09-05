@@ -82,35 +82,35 @@ public class GenrePage {
         }
     }
 
-    public int getMaxDiscount() {
+    private int getMaxDiscount() {
         return NumberReader.getIntNumber(topSellersTab.getGameWithMaxDiscount().getText());
     }
 
-    public Double getOriginalPriceOfGameWithMaxDiscount() {
+    private Double getOriginalPriceOfGameWithMaxDiscount() {
         return NumberReader.getDoubleNumber(topSellersTab.getGameWithMaxDiscount().findElement(originPriceLoc).getText());
     }
 
-    public Double getFinalPriceOfGameWithMaxDiscount() {
+    private Double getFinalPriceOfGameWithMaxDiscount() {
         return NumberReader.getDoubleNumber(topSellersTab.getGameWithMaxDiscount().findElement(finalPriceLoc).getText());
     }
 
-    public String getNameOfGameWithMaxDiscount() {
+    private String getNameOfGameWithMaxDiscount() {
         return topSellersTab.getGameWithMaxDiscount().findElement(gameNameLoc).getText();
     }
 
-    public int getMinDiscount() {
+    private int getMinDiscount() {
         return NumberReader.getIntNumber(topSellersTab.getGameWithMinDiscount().getText());
     }
 
-    public Double getOriginalPriceOfGameWithMinDiscount() {
+    private Double getOriginalPriceOfGameWithMinDiscount() {
         return NumberReader.getDoubleNumber(topSellersTab.getGameWithMinDiscount().findElement(originPriceLoc).getText());
     }
 
-    public Double getFinalPriceOfGameWithMinDiscount() {
+    private Double getFinalPriceOfGameWithMinDiscount() {
         return NumberReader.getDoubleNumber(topSellersTab.getGameWithMinDiscount().findElement(finalPriceLoc).getText());
     }
 
-    public String getNameOfGameWithMinDiscount() {
+    private String getNameOfGameWithMinDiscount() {
         return topSellersTab.getGameWithMinDiscount().findElement(gameNameLoc).getText();
     }
 

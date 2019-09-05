@@ -2,6 +2,7 @@ package testCases;
 
 import Steps.Steps;
 import framework.browser.Browser;
+import framework.utils.LoggerUtil;
 import framework.utils.PropertyManager;
 import org.testng.annotations.*;
 import pageObject.steamPages.CheckAgePage;
@@ -20,6 +21,7 @@ public class SteamTestCase2 {
 
     @BeforeTest
     public void setUp() {
+        Steps.setUpLogger(this.getClass().getName());
         Steps.setUpBrowser();
     }
 

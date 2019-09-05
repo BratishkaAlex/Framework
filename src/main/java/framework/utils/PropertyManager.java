@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 import static framework.utils.LoggerUtil.LOGGER;
-import static framework.utils.LoggerUtil.exception;
 
 public class PropertyManager {
 
@@ -16,22 +15,22 @@ public class PropertyManager {
     private static String pathToRuDictionary = "src/main/resources/ru.properties";
 
     public static String getConfigProperty(String property) {
-        LOGGER.warning("Reading property '" + property + "' from .properties file, can be FileNotFoundException or IOException");
+        LOGGER.warn("Reading property '" + property + "' from .properties file, can be FileNotFoundException or IOException");
         Properties properties = new Properties();
         try {
             properties.load(new FileReader(new File(pathToPropertiesFile)));
         } catch (FileNotFoundException e) {
-            exception("FileNotFoundException", e);
+            LOGGER.error("FileNotFoundException", e);
             System.out.println("Config.property wasn't found");
         } catch (IOException e) {
-            exception("IOException", e);
+            LOGGER.error("IOException", e);
             System.out.println("Error in reading .property file");
         }
         return properties.getProperty(property);
     }
 
     public static String getWordFromDictionary(String word) {
-        LOGGER.warning("Reading word '" + word + "' from .properties dictionary, can be FileNotFoundException or IOException");
+        LOGGER.warn("Reading word '" + word + "' from .properties dictionary, can be FileNotFoundException or IOException");
         Properties properties = new Properties();
         try {
             switch (PropertyManager.getConfigProperty("language")) {
@@ -45,10 +44,10 @@ public class PropertyManager {
                     throw new IllegalArgumentException("Unknown language");
             }
         } catch (FileNotFoundException e) {
-            exception("FileNotFoundException", e);
+            LOGGER.error("FileNotFoundException", e);
             System.out.println("Config.property wasn't found");
         } catch (IOException e) {
-            exception("IOException", e);
+            LOGGER.error("IOException", e);
             System.out.println("Error in reading .property file");
         }
         return properties.getProperty(word);

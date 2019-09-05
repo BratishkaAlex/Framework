@@ -13,9 +13,12 @@ public class Steps {
     }
 
     public static void setUpBrowser() {
-        new LoggerUtil("src/main/resources/log.config");
         Browser.maximize();
         Waiter.implicitWaitDefault();
+    }
+
+    public static void  setUpLogger(String className){
+        new LoggerUtil(className);
     }
 
 
