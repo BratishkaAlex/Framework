@@ -1,6 +1,6 @@
 package pageObject.steamPages;
 
-import appUtils.Utils;
+import framework.elements.Button;
 import framework.elements.Label;
 import framework.utils.NumberReader;
 import org.openqa.selenium.By;
@@ -15,7 +15,7 @@ public class GenrePage {
     private By originPriceLoc = By.xpath("parent::div//div[@class='discount_original_price']");
     private By finalPriceLoc = By.xpath("parent::div//div[@class='discount_final_price']");
     private By gameNameLoc = By.xpath("../following-sibling::div//div[contains(@class,'tab_item_name')]");
-    private By topSellersTabLoc = By.id("TopSellersTable");
+    private By topSellersTabLoc = By.xpath("//div[@id='tab_select_TopSellers' and contains(@class, 'tab_filler active')]");
 
     public GenrePage() {
         tabBar = new TabBar();
@@ -35,7 +35,7 @@ public class GenrePage {
     }
 
     public boolean isTopSellersClicked() {
-        return Utils.elementIsDisplayed(topSellersTabLoc);
+        return new Button(topSellersTabLoc).isDisplayed();
     }
 
     public String getName(String discountRate) {

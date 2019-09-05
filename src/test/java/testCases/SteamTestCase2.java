@@ -2,7 +2,6 @@ package testCases;
 
 import Steps.Steps;
 import framework.browser.Browser;
-import framework.utils.LoggerUtil;
 import framework.utils.PropertyManager;
 import org.testng.annotations.*;
 import pageObject.steamPages.CheckAgePage;
