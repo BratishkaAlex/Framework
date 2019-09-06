@@ -7,11 +7,12 @@ import org.openqa.selenium.WebElement;
 import static framework.utils.LoggerUtil.LOGGER;
 
 public abstract class BaseElement {
+    private String name = this.getClass().getSimpleName();
     private By loc;
     private WebElement webElement;
 
     public BaseElement(By loc) {
-        LOGGER.info(String.format("Creating instance of custom %s", this.getClass().getSimpleName()));
+        LOGGER.info(String.format("Creating instance of custom %s", name));
         this.loc = loc;
         this.webElement = Browser.getDriver().findElement(loc);
     }
@@ -21,12 +22,12 @@ public abstract class BaseElement {
     }
 
     public boolean isDisplayed() {
-        LOGGER.info(String.format("Checking displaying of custom %s", this.getClass().getSimpleName()));
+        LOGGER.info(String.format("Checking displaying of custom %s", name));
         return webElement.isDisplayed();
     }
 
     public String getText() {
-        LOGGER.info(String.format("Getting text of custom %s", this.getClass().getSimpleName()));
+        LOGGER.info(String.format("Getting text of custom %s", name));
         return webElement.getText();
     }
 
