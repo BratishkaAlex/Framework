@@ -14,10 +14,6 @@ public class Waiter {
 
     private static int timeout = Integer.parseInt(PropertyManager.getConfigProperty("timeout"));
 
-    public static void implicitWaitDefault() {
-        Browser.getDriver().manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
-    }
-
     public static void implicitWait(int timeout) {
         Browser.getDriver().manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
     }

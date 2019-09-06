@@ -40,7 +40,7 @@ public class SteamTestCase1 {
 
     @AfterTest
     public void closeBrowser() {
-        Steps.closeBrowser();
+        Browser.closeBrowser();
     }
 
     @Test

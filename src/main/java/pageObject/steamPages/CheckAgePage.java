@@ -2,6 +2,7 @@ package pageObject.steamPages;
 
 import appUtils.Utils;
 import framework.elements.Button;
+import framework.utils.PropertyManager;
 import framework.utils.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -31,14 +32,15 @@ public class CheckAgePage {
 
     public static boolean IsDisplayed() {
         Waiter.implicitWait(1);
+        int defaultTimeout = Integer.parseInt(PropertyManager.getConfigProperty("timeout"));
         LOGGER.warn("Checking existing confirm age page, can be NoSuchElementException");
         try {
             boolean isDisplayed = Utils.elementIsDisplayed(confirmAgeLoc);
-            Waiter.implicitWaitDefault();
+            Waiter.implicitWait(defaultTimeout);
             return isDisplayed;
         } catch (NoSuchElementException e) {
             LOGGER.error("There is no such element", e);
-            Waiter.implicitWaitDefault();
+            Waiter.implicitWait(defaultTimeout);
             return false;
         }
     }

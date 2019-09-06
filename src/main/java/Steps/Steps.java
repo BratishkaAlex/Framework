@@ -2,6 +2,7 @@ package Steps;
 
 import framework.browser.Browser;
 import framework.utils.LoggerUtil;
+import framework.utils.PropertyManager;
 import framework.utils.Waiter;
 import pageObject.steamPages.CheckAgePage;
 
@@ -14,15 +15,10 @@ public class Steps {
 
     public static void setUpBrowser() {
         Browser.maximize();
-        Waiter.implicitWaitDefault();
+        Waiter.implicitWait(Integer.parseInt(PropertyManager.getConfigProperty("timeout")));
     }
 
-    public static void  setUpLogger(String className){
+    public static void setUpLogger(String className) {
         new LoggerUtil(className);
-    }
-
-
-    public static void closeBrowser() {
-        Browser.closeBrowser();
     }
 }

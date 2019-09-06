@@ -31,7 +31,7 @@ public class SteamTestCase2 {
 
     @AfterTest
     public void closeBrowser() {
-        Steps.closeBrowser();
+        Browser.closeBrowser();
     }
 
     @DataProvider(name = "Search discount")
